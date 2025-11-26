@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import config from "./config/config";
 import { Admin } from "./helper/helperFunction";
+import authRouter from "./routes/auth/authRouter";
 
 const app = express();
 const port = config.PORT || 5000;
@@ -36,6 +37,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("Internal Error:", err);
   res.status(500).json({ error: "Internal server error" });
 });
+
+app.use("/api/auth", authRouter);
 
 dbConnect()
   .then(() => {
