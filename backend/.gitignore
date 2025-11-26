@@ -1,0 +1,69 @@
+# Node Modules
+node_modules/
+node_modules
+
+# Build Output
+dist/
+build/
+.out/
+.next/
+.vercel/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# OS / Editor Files
+.DS_Store
+Thumbs.db
+
+# Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage
+coverage/
+
+# Cache
+.cache/
+.tmp/
+.temp/
+.eslintcache
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+
+# PM2 Logs
+.pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm/
+
+# Local env files
+.env*
+!.env.example
+
+# VSCode
+.vscode/
+
+# S3 or Public Files (optional)
+uploads/
+public/uploads/
+
