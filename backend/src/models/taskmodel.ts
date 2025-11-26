@@ -4,7 +4,7 @@ export interface ITask extends Document {
   title: string;
   description?: string;
   completed: boolean;
-  user: Schema.Types.ObjectId;
+  userid: Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -20,7 +20,7 @@ const taskSchema = new Schema<ITask>(
     title: { type: String },
     description: { type: String },
     completed: { type: Boolean, default: false },
-    user: { type: Schema.Types.ObjectId, ref: "user" },
+    userid: { type: Schema.Types.ObjectId, ref: "user" },
   },
   { timestamps: true, versionKey: false }
 );
@@ -38,5 +38,5 @@ taskSchema.pre("findOneAndUpdate", function (next: any) {
   next();
 });
 
-const TaskModel: Model<ITask> = model<ITask>("Task", taskSchema);
-export default TaskModel;
+const taskmodel: Model<ITask> = model<ITask>("Task", taskSchema);
+export default taskmodel;

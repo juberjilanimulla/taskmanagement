@@ -4,8 +4,14 @@ import morgan from "morgan";
 import cors from "cors";
 import bodyParser from "body-parser";
 import config from "./config/config";
-import { Admin } from "./helper/helperFunction";
+import {
+  Admin,
+  authMiddleware,
+  isAdminMiddleware,
+} from "./helper/helperFunction";
 import authRouter from "./routes/auth/authRouter";
+import adminRouter from "./routes/admin/adminRouter";
+import userRouter from "./routes/user/userRouter";
 
 const app = express();
 const port = config.PORT || 5000;
@@ -39,6 +45,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/admin", authMiddleware, isAdminMiddleware, adminRouter);
+app.use("/api/user", userRouter);
 
 dbConnect()
   .then(() => {
