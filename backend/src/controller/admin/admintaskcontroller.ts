@@ -116,6 +116,10 @@ export const updatetaskHandler = async (
     const { _id, ...updatedData } = req.body;
     const options = { new: true };
 
+    if (!_id) {
+      errorResponse(res, 400, "Task ID is required");
+      return;
+    }
     // Validate required fields
     if (!updatedData.title || !updatedData.description) {
       errorResponse(res, 404, "Some params are missing");

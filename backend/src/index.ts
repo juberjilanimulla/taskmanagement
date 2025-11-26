@@ -46,7 +46,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/admin", authMiddleware, isAdminMiddleware, adminRouter);
-app.use("/api/user", userRouter);
+app.use("/api/user", authMiddleware, userRouter);
 
 dbConnect()
   .then(() => {
