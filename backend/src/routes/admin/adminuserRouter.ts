@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getusersHandler } from "../../controller/admin/adminusercontroller";
+import {
+  deleteuserHandler,
+  getusersHandler,
+} from "../../controller/admin/adminusercontroller";
 
 const adminuserRouter = Router();
 
 adminuserRouter.get("/", getusersHandler);
+adminuserRouter.delete("/delete/:id", deleteuserHandler);
 
 export default adminuserRouter;

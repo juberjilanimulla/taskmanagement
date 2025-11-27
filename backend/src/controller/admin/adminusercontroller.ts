@@ -14,3 +14,19 @@ export const getusersHandler = async (req: Request, res: Response) => {
     errorResponse(res, 500, "Internal server error");
   }
 };
+
+export const deleteuserHandler = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const deletedUser = await usermodel.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return errorResponse(res, 404, "User not found");
+    }
+
+    successResponse(res, "User deleted successfully");
+  } catch (error) {
+    console.error("Delete User Error:", error);
+    errorResponse(res, 500, "Internal Server Error");
+  }
+};
