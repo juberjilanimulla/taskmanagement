@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import taskmodel, { ITask } from "../../models/taskmodel";
 import { successResponse, errorResponse } from "../../helper/serverResponse";
 
-export const createusertaskHandler = async (req: Request, res: Response) => {
+export const createusertasksHandler = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.id;
     const { title, description } = req.body;
@@ -24,7 +24,7 @@ export const createusertaskHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const getallusertaskHandler = async (req: Request, res: Response) => {
+export const getusertasksHandler = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.id;
     const tasks = await taskmodel
@@ -38,7 +38,7 @@ export const getallusertaskHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const updateusertaskHandler = async (req: Request, res: Response) => {
+export const updateusertasksHandler = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.id;
     const taskId = req.params.id;
@@ -69,7 +69,7 @@ export const updateusertaskHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteusertaskHandler = async (req: Request, res: Response) => {
+export const deleteusertasksHandler = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.id;
     const taskId = req.params.id;

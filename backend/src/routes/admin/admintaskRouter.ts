@@ -4,7 +4,7 @@ import {
   deletetaskHandler,
   getalltaskHandler,
   updatetaskHandler,
-} from "../../controller/user/admintaskcontroller";
+} from "../../controller/admin/admintaskcontroller";
 
 const admintaskRouter = Router();
 

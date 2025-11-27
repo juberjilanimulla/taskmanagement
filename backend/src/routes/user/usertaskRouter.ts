@@ -1,16 +1,16 @@
 import { Router } from "express";
 import {
-  createtaskHandler,
-  deletetaskHandler,
-  getalltaskHandler,
-  updatetaskHandler,
-} from "../../controller/admin/admintaskcontroller";
+  deleteusertasksHandler,
+  createusertasksHandler,
+  getusertasksHandler,
+  updateusertasksHandler,
+} from "../../controller/user/usercontroller";
 
 const usertaskRouter = Router();
 
-usertaskRouter.get("/tasks", getalltaskHandler);
-usertaskRouter.post("/create", createtaskHandler);
-usertaskRouter.put("/update/:id", updatetaskHandler);
-usertaskRouter.delete("/delete/:id", deletetaskHandler);
+usertaskRouter.get("/", getusertasksHandler);
+usertaskRouter.post("/create", createusertasksHandler);
+usertaskRouter.put("/update/:id", updateusertasksHandler);
+usertaskRouter.delete("/delete/:id", deleteusertasksHandler);
 
 export default usertaskRouter;
