@@ -10,7 +10,6 @@ const base_url = import.meta.env.VITE_BASE_URL;
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
 
-  // ✅ Fetch all users
   const fetchUsers = async () => {
     try {
       const res = await axios.get(`${base_url}/api/admin/users`);
@@ -24,7 +23,6 @@ const AdminUsers = () => {
     fetchUsers();
   }, []);
 
-  // ✅ Delete user (SweetAlert)
   const handleDeleteUser = async (id) => {
     const confirm = await Swal.fire({
       title: "Delete this user?",
