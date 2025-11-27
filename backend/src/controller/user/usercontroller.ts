@@ -42,10 +42,19 @@ export const updateusertasksHandler = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.id;
     const taskId = req.params.id;
-    const { title, description } = req.body;
+    const { title, description, status } = req.body;
 
-    if (!title && !description) {
+    if (!title || !description || !status) {
       return errorResponse(res, 400, "Nothing to update");
+    }
+
+    const validStatus = ["pending", "completed"];
+    if (status && !validStatus.includes(status.toLowerCase())) {
+      return errorResponse(
+        res,
+        400,
+        "Invalid status - must be 'pending' or 'completed'"
+      );
     }
 
     const task: ITask | null = await taskmodel.findOne({
@@ -59,7 +68,7 @@ export const updateusertasksHandler = async (req: Request, res: Response) => {
 
     if (title) task.title = title;
     if (description) task.description = description;
-
+    if (status) task.status = status.toLowerCase();
     const updatedTask = await task.save();
 
     successResponse(res, "Task updated", updatedTask);

@@ -3,7 +3,7 @@ import { Schema, model, Document, Model } from "mongoose";
 export interface ITask extends Document {
   title: string;
   description?: string;
-  completed: boolean;
+  status: string;
   userid: Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
@@ -19,7 +19,11 @@ const taskSchema = new Schema<ITask>(
   {
     title: { type: String },
     description: { type: String },
-    completed: { type: Boolean, default: false },
+    status: {
+      type: String,
+      enum: ["pending", "completed"],
+      default: "pending",
+    },
     userid: { type: Schema.Types.ObjectId, ref: "user" },
   },
   { timestamps: true, versionKey: false }
