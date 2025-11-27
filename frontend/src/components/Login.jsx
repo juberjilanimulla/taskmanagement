@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import logo from "../../public/assets/Login/logintm.png";
+import logo from "/assets/Login/logintm.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.css";
@@ -47,9 +47,6 @@ const AdminLogin = () => {
       <ToastContainer />
       <div className="admin-login-header">
         <img src={logo} alt="Logo" className="admin-login-logo" />
-        <a href="/" className="admin-login-site-btn">
-          Go to Site
-        </a>
       </div>
       <div className="admin-login-container">
         <div className="admin-login-card">
