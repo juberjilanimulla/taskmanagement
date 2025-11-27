@@ -1,0 +1,139 @@
+/* Wrapper fills screen */
+.admin-login-wrapper {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.admin-login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 40px auto;
+  width: 100%;
+}
+
+.admin-login-logo {
+  height: 70px;
+  object-fit: contain;
+}
+
+.admin-login-site-btn {
+  padding: 8px 16px;
+  background-color: #014ab9;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.admin-login-site-btn:hover {
+  background-color: #0b8c7e;
+}
+
+/* Centered container */
+.admin-login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card box */
+.admin-login-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 12px;
+  margin-top: -10vh;
+}
+
+.admin-login-card h1 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+}
+/* Form fields */
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-login-form input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Password with icon */
+.admin-password-field {
+  position: relative;
+}
+
+.admin-password-field input {
+  padding-right: 40px;
+}
+
+.admin-password-field span {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+}
+
+/* Submit button */
+.admin-login-form button {
+  background-color: #014ab9;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-login-form button:hover {
+  background-color: #0b8c7e;
+}
+
+/* Error message */
+.admin-login-error {
+  color: red;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .admin-login-wrapper {
+    padding: 16px;
+  }
+
+  .admin-login-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .admin-login-card {
+    padding: 24px;
+  }
+}
