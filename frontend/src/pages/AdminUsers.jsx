@@ -90,13 +90,15 @@ const AdminUsers = () => {
                 <td>{user.mobile}</td>
                 <td className="role-badge">{user.role}</td>
 
-                <td className="user-actions">
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDeleteUser(user._id)}
-                  >
-                    <FaTrash />
-                  </button>
+                <td>
+                  <div className="user-actions">
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteUser(user._id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))

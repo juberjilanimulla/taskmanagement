@@ -15,16 +15,16 @@ const UserTasks = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    status: "pending",
   });
 
   const token = localStorage.getItem("token");
 
-  // Attach auth header reusable config
   const authHeader = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  // ✅ Fetch Tasks
+  // Fetch tasks
   const fetchTasks = async () => {
     try {
       const res = await axios.get(`${base_url}/api/user/tasks`, authHeader);
@@ -45,27 +45,32 @@ const UserTasks = () => {
     });
   };
 
-  // ✅ Create Task
+  // CREATE TASK
   const handleCreateTask = async (e) => {
     e.preventDefault();
+
+    const newTask = {
+      title: formData.title,
+      description: formData.description,
+      status: "pending", // default
+    };
 
     try {
       await axios.post(
         `${base_url}/api/user/tasks/create`,
-        formData,
+        newTask,
         authHeader
       );
 
       toast.success("Task created successfully!");
-      setShowForm(false);
-      setFormData({ title: "", description: "" });
+      closeForm();
       fetchTasks();
     } catch (error) {
       toast.error("Failed to create task");
     }
   };
 
-  // ✅ Update Task
+  // UPDATE TASK
   const handleUpdateTask = async (e) => {
     e.preventDefault();
 
@@ -77,16 +82,14 @@ const UserTasks = () => {
       );
 
       toast.success("Task updated successfully!");
-      setShowForm(false);
-      setEditingTask(null);
-      setFormData({ title: "", description: "", status: "" });
+      closeForm();
       fetchTasks();
     } catch (error) {
       toast.error("Failed to update task");
     }
   };
 
-  // ✅ Delete Task (SweetAlert)
+  // DELETE TASK
   const handleDeleteTask = async (id) => {
     const confirm = await Swal.fire({
       title: "Delete this task?",
@@ -103,7 +106,6 @@ const UserTasks = () => {
 
     try {
       await axios.delete(`${base_url}/api/user/tasks/delete/${id}`, authHeader);
-
       toast.success("Task deleted successfully!");
       fetchTasks();
     } catch (error) {
@@ -111,13 +113,26 @@ const UserTasks = () => {
     }
   };
 
+  // OPEN EDIT FORM
   const openEditForm = (task) => {
     setEditingTask(task);
     setFormData({
       title: task.title,
       description: task.description,
+      status: task.status,
     });
     setShowForm(true);
+  };
+
+  // CLOSE FORM + RESET
+  const closeForm = () => {
+    setShowForm(false);
+    setEditingTask(null);
+    setFormData({
+      title: "",
+      description: "",
+      status: "pending",
+    });
   };
 
   return (
@@ -153,7 +168,6 @@ const UserTasks = () => {
               <tr key={task._id}>
                 <td>{task.title}</td>
                 <td>{task.description}</td>
-
                 <td>
                   <span
                     className={`status-badge ${
@@ -212,12 +226,17 @@ const UserTasks = () => {
                 required
               ></textarea>
 
-              <textarea
-                name="status"
-                placeholder="Status"
-                value={formData.status}
-                onChange={handleChange}
-              ></textarea>
+              {/* ONLY SHOW STATUS FIELD IN EDIT MODE */}
+              {editingTask && (
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                >
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                </select>
+              )}
 
               <div className="modal-buttons">
                 <button type="submit" className="save-btn">
@@ -227,11 +246,7 @@ const UserTasks = () => {
                 <button
                   type="button"
                   className="cancel-btn"
-                  onClick={() => {
-                    setShowForm(false);
-                    setEditingTask(null);
-                    setFormData({ title: "", description: "" });
-                  }}
+                  onClick={closeForm}
                 >
                   Cancel
                 </button>

@@ -176,3 +176,22 @@
 .cancel-btn:hover {
   opacity: 0.9;
 }
+
+.modal-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+
+  margin-bottom: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+/* Focus effect */
+.modal-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+}
