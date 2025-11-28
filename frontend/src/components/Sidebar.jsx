@@ -1,42 +1,60 @@
 import { NavLink } from "react-router-dom";
-import { FaTachometerAlt, FaSignOutAlt, FaBriefcase } from "react-icons/fa";
+import {
+  FaTachometerAlt,
+  FaSignOutAlt,
+  FaBriefcase,
+  FaUsers,
+} from "react-icons/fa";
 import "../styles/Sidebar.css";
 import sidebarpng from "../../public/assets/Sidebar/tm.png";
 
 const Sidebar = () => {
+  const role = localStorage.getItem("role");
+
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    window.location.href = "/admin";
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    window.location.href = "/";
   };
 
   return (
     <aside className="admin-sidebar">
       <div className="admin-sidebar-logo">
         <a href="/">
-          <img src={sidebarpng} alt="Admin Logo" />
+          <img src={sidebarpng} alt="Logo" />
         </a>
       </div>
 
       <nav className="admin-sidebar-nav">
-        <NavLink
-          to="/admin/dashboard"
-          className={({ isActive }) =>
-            isActive ? "admin-sidebar-link active" : "admin-sidebar-link"
-          }
-        >
-          <FaTachometerAlt />
-          <span>Dashboard</span>
-        </NavLink>
+        {/* ADMIN SIDEBAR */}
+        {role === "admin" && (
+          <>
+            <NavLink
+              to="/admin/users"
+              className={({ isActive }) =>
+                isActive ? "admin-sidebar-link active" : "admin-sidebar-link"
+              }
+            >
+              <FaUsers />
+              <span>Users</span>
+            </NavLink>
+          </>
+        )}
 
-        <NavLink
-          to="/admin/tasks"
-          className={({ isActive }) =>
-            isActive ? "admin-sidebar-link active" : "admin-sidebar-link"
-          }
-        >
-          <FaBriefcase />
-          <span>Tasks</span>
-        </NavLink>
+        {/* USER SIDEBAR */}
+        {role === "user" && (
+          <>
+            <NavLink
+              to="/user/tasks"
+              className={({ isActive }) =>
+                isActive ? "admin-sidebar-link active" : "admin-sidebar-link"
+              }
+            >
+              <FaBriefcase />
+              <span>My Tasks</span>
+            </NavLink>
+          </>
+        )}
 
         <button className="admin-sidebar-link logout" onClick={handleLogout}>
           <FaSignOutAlt />

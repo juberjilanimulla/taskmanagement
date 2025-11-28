@@ -9,7 +9,7 @@ import "../styles/Login.css";
 
 const base_url = import.meta.env.VITE_BASE_URL;
 
-const AdminLogin = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -37,22 +37,27 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
       const res = await axios.post(`${base_url}/api/auth/signin`, formData);
 
-      if (res.data?.data?.encoded_token) {
-        localStorage.setItem("adminToken", res.data.data.encoded_token);
-        navigate("/admin/dashboard");
+      if (res.data?.data?.encoded_token && res.data?.data?.role) {
+        localStorage.setItem("token", res.data.data.encoded_token);
+        localStorage.setItem("role", res.data.data.role);
+
+        // Redirect based on role
+        if (res.data.data.role === "admin") {
+          navigate("/admin/users");
+        } else {
+          navigate("/user/tasks");
+        }
+
         window.location.reload();
       } else {
-        toast.error("Invalid response from server", {
-          position: "top-right",
-        });
+        toast.error("Invalid server response");
       }
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Login failed", {
-        position: "top-right",
-      });
+      toast.error(err?.response?.data?.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -209,4 +214,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default Login;

@@ -7,11 +7,12 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Components
 import Sidebar from "./components/Sidebar";
+import Login from "./components/Login";
 
 // Pages
-import Login from "../src/components/Login";
+import AdminUsers from "./pages/AdminUsers";
+import UserTasks from "./pages/UserTasks";
 
 const isLoggedIn = () => !!localStorage.getItem("token");
 const getRole = () => localStorage.getItem("role");
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 
+  // ADMIN ROUTES
   {
     path: "/admin",
     element:
@@ -43,12 +45,10 @@ const router = createBrowserRouter([
       ) : (
         <Navigate to="/" />
       ),
-    children: [
-      // { path: "dashboard", element: <AdminDashboard /> },
-      // { path: "users", element: <AdminUsers /> },
-    ],
+    children: [{ path: "users", element: <AdminUsers /> }],
   },
 
+  // USER ROUTES
   {
     path: "/user",
     element:
@@ -57,11 +57,7 @@ const router = createBrowserRouter([
       ) : (
         <Navigate to="/" />
       ),
-    // children: [
-    //   { path: "tasks", element: <UserTasks /> },
-    //   { path: "tasks/create", element: <CreateTask /> },
-    //   { path: "tasks/edit/:id", element: <EditTask /> },
-    // ],
+    children: [{ path: "tasks", element: <UserTasks /> }],
   },
 
   { path: "*", element: <Navigate to="/" /> },
