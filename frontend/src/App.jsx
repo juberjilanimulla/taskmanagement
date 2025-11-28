@@ -1,14 +1,14 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  Outlet,
   Navigate,
 } from "react-router-dom";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Sidebar from "./components/Sidebar";
 import Login from "./components/Login";
+import PanelLayout from "./components/PanelLayout";
 
 // Pages
 import AdminUsers from "./pages/AdminUsers";
@@ -17,26 +17,13 @@ import UserTasks from "./pages/UserTasks";
 const isLoggedIn = () => !!localStorage.getItem("token");
 const getRole = () => localStorage.getItem("role");
 
-const PanelLayout = () => {
-  if (!isLoggedIn()) return <Navigate to="/" />;
-
-  return (
-    <div className="app-layout">
-      <Sidebar />
-      <div className="app-content">
-        <Outlet />
-      </div>
-    </div>
-  );
-};
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
   },
 
-  // ADMIN ROUTES
+  // ================= ADMIN ROUTES =================
   {
     path: "/admin",
     element:
@@ -48,7 +35,7 @@ const router = createBrowserRouter([
     children: [{ path: "users", element: <AdminUsers /> }],
   },
 
-  // USER ROUTES
+  // ================= USER ROUTES =================
   {
     path: "/user",
     element:
@@ -60,6 +47,7 @@ const router = createBrowserRouter([
     children: [{ path: "tasks", element: <UserTasks /> }],
   },
 
+  // Wildcard redirect
   { path: "*", element: <Navigate to="/" /> },
 ]);
 

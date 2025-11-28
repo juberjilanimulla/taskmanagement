@@ -6,7 +6,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import "../styles/Sidebar.css";
-import sidebarpng from "/assets/Sidebar/tm.png";
+import sidebarpng from "/assets/Sidebar/jm.png";
 
 const Sidebar = () => {
   const role = localStorage.getItem("role");

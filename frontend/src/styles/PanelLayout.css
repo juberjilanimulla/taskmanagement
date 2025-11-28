@@ -1,0 +1,15 @@
+/* MAIN LAYOUT */
+.app-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* CONTENT AREA (Right side) */
+.app-content {
+  margin-left: 240px; /* EXACT WIDTH OF SIDEBAR */
+  width: calc(100% - 240px);
+  padding: 30px;
+  background: var(--color-bg);
+  color: var(--color-text);
+}

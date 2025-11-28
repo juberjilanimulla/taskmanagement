@@ -10,9 +10,15 @@ const base_url = import.meta.env.VITE_BASE_URL;
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
 
+  const token = localStorage.getItem("token");
+
+  const authHeader = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${base_url}/api/admin/users`);
+      const res = await axios.get(`${base_url}/api/admin/users`, authHeader);
       setUsers(res.data.data || []);
     } catch (err) {
       toast.error("Failed to load users");
@@ -38,7 +44,11 @@ const AdminUsers = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axios.delete(`${base_url}/api/admin/users/delete/${id}`);
+      await axios.delete(
+        `${base_url}/api/admin/users/delete/${id}`,
+        authHeader
+      );
+
       toast.success("User deleted successfully");
       fetchUsers();
     } catch (err) {
@@ -48,12 +58,10 @@ const AdminUsers = () => {
 
   return (
     <div className="admin-users-container">
-      {/* Header */}
       <div className="admin-users-header">
         <h2>Users List</h2>
       </div>
 
-      {/* Users Table */}
       <table className="admin-users-table">
         <thead>
           <tr>

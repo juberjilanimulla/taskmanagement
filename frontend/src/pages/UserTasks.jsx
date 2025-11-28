@@ -79,7 +79,7 @@ const UserTasks = () => {
       toast.success("Task updated successfully!");
       setShowForm(false);
       setEditingTask(null);
-      setFormData({ title: "", description: "" });
+      setFormData({ title: "", description: "", status: "" });
       fetchTasks();
     } catch (error) {
       toast.error("Failed to update task");
@@ -210,6 +210,13 @@ const UserTasks = () => {
                 value={formData.description}
                 onChange={handleChange}
                 required
+              ></textarea>
+
+              <textarea
+                name="status"
+                placeholder="Status"
+                value={formData.status}
+                onChange={handleChange}
               ></textarea>
 
               <div className="modal-buttons">
