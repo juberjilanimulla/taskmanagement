@@ -15,13 +15,19 @@ const UserTasks = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    status: "pending",
   });
+
+  const token = localStorage.getItem("token");
+
+  // Attach auth header reusable config
+  const authHeader = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   // ✅ Fetch Tasks
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`${base_url}/api/user/tasks`);
+      const res = await axios.get(`${base_url}/api/user/tasks`, authHeader);
       setTasks(res.data.data || []);
     } catch (err) {
       toast.error("Failed to fetch tasks");
@@ -44,10 +50,15 @@ const UserTasks = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${base_url}/api/user/tasks/create`, formData);
+      await axios.post(
+        `${base_url}/api/user/tasks/create`,
+        formData,
+        authHeader
+      );
+
       toast.success("Task created successfully!");
       setShowForm(false);
-      setFormData({ title: "", description: "", status: "pending" });
+      setFormData({ title: "", description: "" });
       fetchTasks();
     } catch (error) {
       toast.error("Failed to create task");
@@ -61,12 +72,14 @@ const UserTasks = () => {
     try {
       await axios.put(
         `${base_url}/api/user/tasks/update/${editingTask._id}`,
-        formData
+        formData,
+        authHeader
       );
+
       toast.success("Task updated successfully!");
       setShowForm(false);
       setEditingTask(null);
-      setFormData({ title: "", description: "", status: "pending" });
+      setFormData({ title: "", description: "" });
       fetchTasks();
     } catch (error) {
       toast.error("Failed to update task");
@@ -89,7 +102,8 @@ const UserTasks = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axios.delete(`${base_url}/api/user/tasks/delete/${id}`);
+      await axios.delete(`${base_url}/api/user/tasks/delete/${id}`, authHeader);
+
       toast.success("Task deleted successfully!");
       fetchTasks();
     } catch (error) {
@@ -102,7 +116,6 @@ const UserTasks = () => {
     setFormData({
       title: task.title,
       description: task.description,
-      status: task.status,
     });
     setShowForm(true);
   };
@@ -199,16 +212,6 @@ const UserTasks = () => {
                 required
               ></textarea>
 
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                required
-              >
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-              </select>
-
               <div className="modal-buttons">
                 <button type="submit" className="save-btn">
                   {editingTask ? "Update" : "Create"}
@@ -220,11 +223,7 @@ const UserTasks = () => {
                   onClick={() => {
                     setShowForm(false);
                     setEditingTask(null);
-                    setFormData({
-                      title: "",
-                      description: "",
-                      status: "pending",
-                    });
+                    setFormData({ title: "", description: "" });
                   }}
                 >
                   Cancel

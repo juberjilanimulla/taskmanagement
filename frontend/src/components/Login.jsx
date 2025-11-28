@@ -34,6 +34,30 @@ const Login = () => {
     setRegData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  //   const handleSubmit = async (e) => {
+  //     e.preventDefault();
+  //     setIsLoading(true);
+  //     try {
+  //       const res = await axios.post(`${base_url}/api/auth/signin`, formData);
+
+  //       if (res.data?.data?.encoded_token) {
+  //         localStorage.setItem("adminToken", res.data.data.encoded_token);
+  //         navigate("/admin/dashboard");
+  //         window.location.reload();
+  //       } else {
+  //         toast.error("Invalid response from server", {
+  //           position: "top-right",
+  //         });
+  //       }
+  //     } catch (err) {
+  //       toast.error(err?.response?.data?.message || "Login failed", {
+  //         position: "top-right",
+  //       });
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -54,8 +78,8 @@ const Login = () => {
 
         window.location.reload();
       } else {
-        toast.error("Invalid server response");
       }
+      console.log(res.data.data.role);
     } catch (err) {
       toast.error(err?.response?.data?.message || "Login failed");
     } finally {
