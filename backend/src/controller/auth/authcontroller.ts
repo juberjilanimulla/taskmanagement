@@ -38,6 +38,7 @@ export const signincontroller = async (req: Request, res: Response) => {
     return successResponse(res, "SignIn successfully", {
       encoded_token,
       public_token,
+      role: user.role,
     });
   } catch (error) {
     console.error("Signin Error:", error);
